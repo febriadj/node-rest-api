@@ -7,4 +7,8 @@ const express = require('express'),
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.get('/', (req, res, next) => {
+  res.json({ message: 'Hello World' })
+})
+
 app.listen(port, () => console.log(`listening on port ${port}`))
