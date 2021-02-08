@@ -7,7 +7,7 @@ router.get('/', (req, res, next) => {
 })
 
 // route middleware
-router.use('/api/list', require('./controllers'))
+router.use('/list', require('./controllers'))
 
 router.use((req, res, next) => {
   res.status(404).json({ message: 'Page Not Found'})
