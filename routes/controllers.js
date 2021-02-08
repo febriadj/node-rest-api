@@ -8,7 +8,6 @@ router.route('/')
     let uri = req.query.add
 
     if ( uri == undefined ) res.json({ message: 'Invalid Query' })
-
     if ( uri == 'list-anime' ) {
       const { author, title, genre, status, rating } = req.body
       let sql = `INSERT INTO listAnime VALUES ( 0, '${author}', '${title}', '${genre}', '${status}', '${rating}' )`
@@ -17,7 +16,6 @@ router.route('/')
         if (err) return res.json({ message: err })
 
         res.json({ message: 'Successfully Added Data'})
-        next()
       })
     }
 
@@ -29,7 +27,6 @@ router.route('/')
         if (err) return res.json({ message: err })
 
         res.json({ message: 'Successfully Added Data' })
-        next()
       })
     }
   })
@@ -37,7 +34,6 @@ router.route('/')
     let uri = req.query.update
 
     if ( uri == undefined ) res.json({ message: 'Invalid Query' })
-
     if ( uri == 'list-anime' ) {
       const { author, title, genre, status, rating, id } = req.body
       let sql = `UPDATE listAnime SET author = ?, title = ?, genre = ?, status = ?, rating = ? WHERE id = ?`
@@ -46,7 +42,6 @@ router.route('/')
         if (err) return res.json({ message: err })
 
         res.json({ message: 'Successfully Update Data' })
-        next()
       })
     }
     
@@ -58,7 +53,6 @@ router.route('/')
         if (err) return res.json({ message: err })
 
         res.json({ message: 'Successfully Update Data' })
-        next()
       })
     }
   })
@@ -71,7 +65,6 @@ router.route('/')
       if (err) return res.json({ message: err })
 
       res.json({ message: 'Successfully Delete Data'})
-      next()
     })
   })
 
