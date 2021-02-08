@@ -3,14 +3,7 @@ const router = require('express').Router()
 const db = require('../models/db')
 
 router.route('/')
-  .get((req, res, next) => {
-    let sql = `SELECT * FROM listAnime LEFT JOIN descAnime ON listAnime.id = descAnime.idList`
-    db.query(sql, (err, result) => {
-      if (err) return res.json({ message: err })
-      
-      res.json({ list: result })
-    })
-  })
+  .get(require('./search'))
   .post((req, res, next) => {
     let uri = req.query.add
 
@@ -42,16 +35,14 @@ router.route('/')
   })
   .put((req, res, next) => {
     let uri = req.query.update
-    let uriId = req.query.id
-    let uriIdList = req.query.idlist
 
     if ( uri == undefined ) res.json({ message: 'Invalid Query' })
 
-    if ( uri == 'list-anime' && uriId ) {
-      const { author, title, genre, status, rating } = req.body
+    if ( uri == 'list-anime' ) {
+      const { author, title, genre, status, rating, id } = req.body
       let sql = `UPDATE listAnime SET author = ?, title = ?, genre = ?, status = ?, rating = ? WHERE id = ?`
       
-      db.query(sql, [author, title, genre, status, rating, uriId], (err, result) => {
+      db.query(sql, [author, title, genre, status, rating, uriId, id], (err, result) => {
         if (err) return res.json({ message: err })
 
         res.json({ message: 'Successfully Update Data' })
@@ -59,9 +50,9 @@ router.route('/')
       })
     }
     
-    if ( uri == 'desc-anime' && uriIdList ) {
-      const { description } = req.body
-      let sql = `UPDATE descAnime SET description = '${description}', idList = ${uriIdList}`
+    if ( uri == 'desc-anime' ) {
+      const { description, idlist } = req.body
+      let sql = `UPDATE descAnime SET description = '${description}', idList = ${idlist}`
 
       db.query(sql, (err, result) => {
         if (err) return res.json({ message: err })
