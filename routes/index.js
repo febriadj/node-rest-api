@@ -1,5 +1,4 @@
 "use strict"
-
 const router = require('express').Router()
 const db = require('../models/db')
 
@@ -8,7 +7,7 @@ router.get('/', (req, res, next) => {
 })
 
 // route middleware
-router.use('/list', require('./alllists'))
+router.use('/api/list', require('./crud-list'))
 
 router.get('*', (req, res, next) => {
   res.status(404).json({ message: 'Page Not Found'})
