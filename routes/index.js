@@ -3,7 +3,7 @@ const router = require('express').Router()
 const db = require('../models/db')
 
 router.get('/', (req, res, next) => {
-  res.json({ message: 'Hello World' })
+  res.json({ message: 'To show a list of anime, go to /api/list in the url address' })
 })
 
 // route middleware
