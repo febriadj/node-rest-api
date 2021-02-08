@@ -40,5 +40,23 @@ router.route('/')
       })
     }
   })
+  .put((req, res, next) => {
+    let uri = req.query.update
+    let uriId = req.query.id
+    let uriIdList = req.query.idlist
+
+    if ( uri == undefined || uriId == undefined ) res.json({ message: 'Invalid Query' })
+    if ( uri == 'list-anime' && uriId ) {
+      const { author, title, genre, status, rating } = req.body
+
+      let sql = `UPDATE listAnime SET author = ?, title = ?, genre = ?, status = ?, rating = ? WHERE id = ?`
+      db.query(sql, [author, title, genre, status, rating, uriId], (err, result) => {
+        if (err) return next(err)
+
+        res.json({ message: 'Successfully Update Data' })
+        next()
+      })
+    }
+  })
 
 module.exports = router
